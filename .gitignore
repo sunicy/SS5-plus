@@ -1,0 +1,8 @@
+*.o
+*.so
+*.swp
+*.log
+src/ss5srv
+src/ss5
+config.status
+Makefile
