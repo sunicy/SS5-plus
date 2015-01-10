@@ -673,6 +673,7 @@ UINT RequestParsing(struct _SS5ClientInfo *ci, struct _SS5Socks5Data *sd, struct
   
   unsigned char *oubuf =NULL;
 
+
   pid_t pid;
 
   /*
@@ -903,6 +904,7 @@ UINT UpstreamServing(struct _SS5ClientInfo *ci, struct _SS5RequestInfo *ri, stru
   struct in_addr in;
 
   int bytes;
+
 
   /*
    *    Get child/thread pid

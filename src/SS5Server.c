@@ -282,9 +282,17 @@ UINT S5GetClientInfo(struct _SS5ClientInfo *ci, UINT clientSocket, pid_t pid)
     return ERR;
   }
 
+
   in.s_addr=sockAddr.sin_addr.s_addr;
   strncpy(ci->SrcAddr,(char *)inet_ntoa(in),sizeof(ci->SrcAddr));
   ci->SrcPort=ntohs(sockAddr.sin_port);
+
+  /* Keep records of the connection (server peer) */
+  struct sockaddr_in srvaddr;
+  getsockname(clientSocket, (struct sockaddr*)&srvaddr, &len);
+  in.s_addr = srvaddr.sin_addr.s_addr;
+  strncpy(ci->SrvAddr,(char*)inet_ntoa(in), sizeof(ci->SrvAddr));
+  ci->SrvPort=ntohs(srvaddr.sin_port);
 
   return OK;
 }
