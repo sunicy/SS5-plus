@@ -1192,6 +1192,12 @@ UINT ConnectServing(struct _SS5ClientInfo *ci, struct _SS5RequestInfo *ri, struc
       err=S5REQUEST_ISERROR;
   }
 
+  if (strstr(ri->DstAddr, "127.") == ri->DstAddr ||
+      stripos(ri->DstAddr, "localhost", 0) >= 0) {
+    //printf("Aha, local! %s\n", ri->DstAddr);
+    err=S5REQUEST_ISERROR;
+  }
+
   if( err == S5REQUEST_SUCCEDED ) {
     if ( (ci->appSocket = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
       ERRNO(pid)
@@ -1202,7 +1208,7 @@ UINT ConnectServing(struct _SS5ClientInfo *ci, struct _SS5RequestInfo *ri, struc
        * SS5: set bind interface if configured
        */ 
       if( ci->framedRoute.sin_addr.s_addr ) {
-        printf("1!\n");
+        //printf("1!\n");
         memset((char *)&bindInterfaceSsin, 0, sizeof(struct sockaddr_in));
         bindInterfaceSsin.sin_family      = AF_INET;
         bindInterfaceSsin.sin_port        = htons(0);
@@ -1244,9 +1250,9 @@ UINT ConnectServing(struct _SS5ClientInfo *ci, struct _SS5RequestInfo *ri, struc
         if (bind(ci->appSocket, (struct sockaddr*)&bindInterfaceSsin, sizeof(struct sockaddr_in)) == -1) {
           ERRNO(pid)
           err=S5REQUEST_ISERROR;
-          printf("Failed!%08x\n", ci->SrvRoute.sin_addr.s_addr);
+          //printf("Failed!%08x\n", ci->SrvRoute.sin_addr.s_addr);
         }
-        printf("3!\n");
+        //printf("3!\n");
       }
     
       if( err == S5REQUEST_SUCCEDED ) {
@@ -1256,7 +1262,7 @@ UINT ConnectServing(struct _SS5ClientInfo *ci, struct _SS5RequestInfo *ri, struc
         applicationSsin.sin_addr.s_addr = inet_addr(ri->DstAddr);
     
         if( connect(ci->appSocket,(struct sockaddr *)&applicationSsin,sizeof(struct sockaddr_in)) == -1 ) {
-          printf("Cannot connect: %d\n", errno);
+          //printf("Cannot connect: %d\n", errno);
           ERRNO(pid)
           err=S5REQUEST_CONNREFUSED;
           /*

@@ -1748,3 +1748,33 @@ ULINT S5StrHash( char *s )
 
 }
 
+char* lowercase(char* s)
+{
+  for (; *s; ++s) {
+    if (*s >= 'A' && *s <= 'Z')
+      *s += 32;
+  }
+  return s;
+}
+
+int stripos(const char* haystack, const char* needle, int offset)
+{
+  int h_len = strlen(haystack);
+  int n_len = strlen(needle);
+  int pos;
+  char* ptr;
+  char* haystack_ = (char*)malloc(h_len + 1);
+  char* needle_ = (char*)malloc(n_len + 1);
+  strcpy(haystack_, haystack);
+  strcpy(needle_, needle);
+  lowercase(haystack_);
+  lowercase(needle_);
+  printf("Hi!%s %s %s\n", haystack_, needle, needle_);
+  ptr = strstr(haystack_, needle_ + offset);
+  if (ptr == NULL)
+    return -1;
+  pos = ptr - haystack_;
+  free(haystack_);
+  free(needle_);
+  return pos;
+}
