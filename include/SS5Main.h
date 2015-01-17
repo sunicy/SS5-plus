@@ -303,6 +303,7 @@ struct _SS5ClientInfo{
   int  appSocket;
   char SrcAddr[16];
   UINT SrcPort;
+  struct sockaddr_in SrvRoute;
   char SrvAddr[16]; 	/* The ip address of the SOCKS5 proxy */
   UINT SrvPort; 		/* The port this tunnel is connected to */
   UINT GssEnc;

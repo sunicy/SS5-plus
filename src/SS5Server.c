@@ -293,6 +293,7 @@ UINT S5GetClientInfo(struct _SS5ClientInfo *ci, UINT clientSocket, pid_t pid)
   in.s_addr = srvaddr.sin_addr.s_addr;
   strncpy(ci->SrvAddr,(char*)inet_ntoa(in), sizeof(ci->SrvAddr));
   ci->SrvPort=ntohs(srvaddr.sin_port);
+  ci->SrvRoute = srvaddr;
 
   return OK;
 }
