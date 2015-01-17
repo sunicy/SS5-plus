@@ -2,7 +2,9 @@
 *.so
 *.swp
 *.log
+*.cgi
 src/ss5srv
 src/ss5
 config.status
 Makefile
+include/config.h
