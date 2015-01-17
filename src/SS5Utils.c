@@ -1769,7 +1769,7 @@ int stripos(const char* haystack, const char* needle, int offset)
   strcpy(needle_, needle);
   lowercase(haystack_);
   lowercase(needle_);
-  printf("Hi!%s %s %s\n", haystack_, needle, needle_);
+  //printf("Hi!%s %s %s\n", haystack_, needle, needle_);
   ptr = strstr(haystack_, needle_ + offset);
   if (ptr == NULL)
     return -1;
